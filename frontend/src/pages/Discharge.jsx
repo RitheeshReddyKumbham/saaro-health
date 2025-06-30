@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Sidebar from "../components/layout/SideBar";
 import Header from "../components/layout/Header";
+import { FiSearch } from "react-icons/fi";
 
 const DischargeSummaryForm = () => {
+    const [searchTerm, setSearchTerm] = useState("");
     const [formData, setFormData] = useState({
         admissionDate: "",
         reason: "",
@@ -46,7 +48,31 @@ const DischargeSummaryForm = () => {
                 <main className="flex-1 p-2 bg-white border-l border-t overflow-y-auto">
                     <div className="max-w-[90%] mx-auto py-8 space-y-10">
                         <div className="mx-auto">
-                            <h1 className="text-xl font-bold mb-4">Discharge Summary</h1>
+                            <h1 className='text-2xl font-semibold mb-6'>Discharge Summary</h1>
+                            <div className="relative w-full mb-4">
+
+                                <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                <input
+                                    type="text"
+                                    placeholder=" Search Name"
+                                    className="w-full pl-10 pr-4 py-2 border rounded-xl bg-[#f1ecf9] text-[#5e3bea] focus:outline-none text-sm"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex justify-between">
+                                <div>
+                                    <p className="text-lg font-semibold">Eathen Carter</p>
+                                    <p className='text-sm '>UID:1234 | Name: Arjun | Age:25 </p>
+                                </div>
+                                <img
+                                    src="https://www.shutterstock.com/image-vector/happy-young-people-design-vector-600nw-440727109.jpg"
+                                    alt="Patient Image"
+                                    className="h-[160px] w-[300px] object-cover rounded"
+                                />
+                            </div>
+
+                            <h1 className="text-xl font-bold mb-4">Discharge Summary Form</h1>
 
                             {/* Admission */}
                             <div>
