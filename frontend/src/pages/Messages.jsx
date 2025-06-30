@@ -35,7 +35,7 @@ const Messages = () => {
         const matchesSearch = contact.name.toLowerCase().includes(searchText.toLowerCase());
         const matchesCategory =
             filterCategory === "All" ||
-            contact.role.toLowerCase() + 's' === filterCategory.toLowerCase();
+            contact.role.toLowerCase() + 's' === filterCategory.toLowerCase() || contact.role.toLowerCase() === filterCategory.toLowerCase();
         const matchStatus = status ? contact.status === "unread" : true;
 
         return matchesSearch && matchesCategory && matchStatus;
