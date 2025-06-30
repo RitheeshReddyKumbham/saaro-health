@@ -112,7 +112,7 @@ const SidebarContent = ({ isLibraryOpen, setIsLibraryOpen }) => (
           <div key="library">
             <button
               onClick={() => setIsLibraryOpen(!isLibraryOpen)}
-              className="w-full flex items-center justify-between px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition"
+              className="w-full flex items-center justify-between px-3 py-2 text-gray-700 rounded-lg hover:bg-[#e6ddfa] transition"
             >
               <div className="flex items-center gap-2">
                 <span className="text-lg"><PiBooksLight /></span>
@@ -123,11 +123,11 @@ const SidebarContent = ({ isLibraryOpen, setIsLibraryOpen }) => (
             {isLibraryOpen && (
               <div className="ml-6 space-y-1 text-sm text-gray-600">
                 <NavLink to="/template-library" className={({ isActive }) =>
-                  `block px-3 py-1 rounded hover:bg-gray-100 ${isActive ? "font-semibold text-black" : ""}`}>Template</NavLink>
+                  `block px-3 py-1 rounded hover:bg-gray-100 ${isActive ? "font-semibold bg-[#e6ddfa] text-black" : ""}`}>Template</NavLink>
                 <NavLink to="/medicine-library" className={({ isActive }) =>
-                  `block px-3 py-1 rounded hover:bg-gray-100 ${isActive ? "font-semibold text-black" : ""}`}>Medicine</NavLink>
+                  `block px-3 py-1 rounded hover:bg-gray-100 ${isActive ? "font-semibold bg-[#e6ddfa] text-black" : ""}`}>Medicine</NavLink>
                 <NavLink to="/dropdown-library" className={({ isActive }) =>
-                  `block px-3 py-1 rounded hover:bg-gray-100 ${isActive ? "font-semibold text-black" : ""}`}>Dropdown</NavLink>
+                  `block px-3 py-1 rounded hover:bg-gray-100 ${isActive ? "font-semibold bg-[#e6ddfa] text-black" : ""}`}>Dropdown</NavLink>
               </div>
             )}
           </div>
@@ -139,8 +139,8 @@ const SidebarContent = ({ isLibraryOpen, setIsLibraryOpen }) => (
           key={link.name}
           to={link.to}
           className={({ isActive }) =>
-            `flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition ${
-              isActive ? "bg-gray-200 font-semibold" : "text-gray-700"
+            `flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[#e6ddfa] transition ${
+              isActive ? "bg-bg-[#e6ddfa] font-semibold" : "text-gray-700"
             }`
           }
         >

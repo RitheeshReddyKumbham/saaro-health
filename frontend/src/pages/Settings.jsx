@@ -3,7 +3,8 @@ import GenericTable from '../components/ui/GenericTable';
 import TabHeader from '../components/ui/TabHeader';
 import Sidebar from "../components/layout/SideBar";
 import Header from "../components/layout/Header";
-import { reviewData,templatesData } from '../data/SettingsData';
+import { reviewData, templatesData } from '../data/SettingsData';
+import { FiSearch } from 'react-icons/fi';
 
 
 const reviewColumns = [
@@ -241,30 +242,34 @@ const Settings = () => {
                         {activeTab === 'reviews' && (
                             <div>
                                 <h2 className="font-semibold mb-3">Manage Reviews</h2>
-                                <input
-                                    type='text'
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full border rounded px-3 py-2 mb-3"
-                                    placeholder="Filter by name"
-                                />
+                                <div className="relative w-full  mb-4">
+                                    <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search by date or rating"
+                                        className="w-full pl-10 pr-4 py-2 border rounded-xl bg-[#f1ecf9] text-[#5e3bea] focus:outline-none text-sm"
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
                                 <GenericTable
                                     columns={reviewColumns}
                                     data={filteredData}
                                     renderCell={(row, accessor) => {
                                         if (accessor === 'action') {
                                             return (
-                                                <button className="text-purple-600 text-sm font-medium">Respond</button>
+                                                <button className="text-[#7c69a7] text-sm  font-semibold">Respond</button>
                                             );
                                         }
                                         if (accessor === 'status') {
-                                            return (
-                                                <span className={"text-sm bg-gray-100 px-3 py-1 rounded-full"}>
-                                                    {row.status}
-                                                </span>
-                                            );
+                                            return <span className="text-sm px-3 py-1 bg-purple-100 text-[#7c69a7] w-[120px] text-center rounded-full inline-block">
+                                                {row[accessor]}
+                                            </span>
                                         }
-                                        return <span className="text-sm">{row[accessor]}</span>;
+                                        if (accessor === 'name') {
+                                            return <span className="text-sm ">{row[accessor]}</span>;
+                                        }
+                                        return <span className="text-sm text-[#7c69a7]">{row[accessor]}</span>;
                                     }}
                                 />
                             </div>

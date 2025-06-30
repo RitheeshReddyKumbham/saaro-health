@@ -6,7 +6,7 @@ export const medicines = [
         dosage: "100mg",
         notes: "For pain relief",
         createdBy: "Dr. Emily Carter",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Ibuprofen",
@@ -15,7 +15,7 @@ export const medicines = [
         dosage: "200mg",
         notes: "For inflammation",
         createdBy: "Dr. David Lee",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Paracetamol",
@@ -24,7 +24,7 @@ export const medicines = [
         dosage: "500mg",
         notes: "For fever",
         createdBy: "Dr. Sarah Jones",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Amoxicillin",
@@ -33,7 +33,7 @@ export const medicines = [
         dosage: "250mg",
         notes: "Antibiotic",
         createdBy: "Dr. Michael Brown",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Ciprofloxacin",
@@ -42,7 +42,7 @@ export const medicines = [
         dosage: "500mg",
         notes: "Antibiotic",
         createdBy: "Dr. Jessica Wilson",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Metformin",
@@ -51,7 +51,7 @@ export const medicines = [
         dosage: "500mg",
         notes: "For diabetes",
         createdBy: "Dr. Robert Green",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Atorvastatin",
@@ -60,7 +60,7 @@ export const medicines = [
         dosage: "20mg",
         notes: "For cholesterol",
         createdBy: "Dr. Laura White",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Lisinopril",
@@ -69,7 +69,7 @@ export const medicines = [
         dosage: "10mg",
         notes: "For blood pressure",
         createdBy: "Dr. Christopher Harris",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Omeprazole",
@@ -78,7 +78,7 @@ export const medicines = [
         dosage: "20mg",
         notes: "For acid reflux",
         createdBy: "Dr. Amanda Clark",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
     {
         name: "Levothyroxine",
@@ -87,6 +87,6 @@ export const medicines = [
         dosage: "50mcg",
         notes: "For thyroid",
         createdBy: "Dr. Daniel Lewis",
-        actions: ' Edit/Delete',
+        actions: ' Edit,Delete',
     },
 ];

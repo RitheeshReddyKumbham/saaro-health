@@ -5,32 +5,41 @@ import Sidebar from "../components/layout/SideBar";
 import Header from "../components/layout/Header";
 import { contacts } from "../data/MessagesDummyData";
 
-
 const Messages = () => {
     const [selectedContact, setSelectedContact] = useState(contacts[0]);
+    const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([
         { from: "Owen", text: "Hi Dr. Chen, I've been experiencing a persistent cough and some shortness of breath.", date: "Today" },
         { from: "Dr. Amelia Chen", text: "Hello", date: "Today" },
         { from: "Owen", text: "Thank you, Dr. Chen. I appreciate your prompt response.", date: "Yesterday" },
         { from: "Dr. Amelia Chen", text: "You're welcome, Owen. I'm here to help.", date: "Yesterday" },
     ]);
-    const [input, setInput] = useState("");
+    const [status, setStatus] = useState(false);
+    const [searchText, setSearchText] = useState("");
+    const [filterCategory, setFilterCategory] = useState("All");
 
     const sendMessage = () => {
-        if (!input.trim()) return;
-        setMessages([...messages, { from: selectedContact.name, text: input, date: "Today" }]);
-        setInput("");
+        if (!message.trim()) return;
+        setMessages([...messages, { from: selectedContact.name, text: message, date: "Today" }]);
+        setMessage("");
     };
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") sendMessage();
     };
-    const filteredData=contacts.filter((contact)=>{
-        return contact.name.toLowerCase().includes(input.toLowerCase())
-    })
 
     const callUser = () => alert("Calling " + selectedContact.name);
     const shareFile = () => alert("Opening file dialog");
+
+    const filteredData = contacts.filter((contact) => {
+        const matchesSearch = contact.name.toLowerCase().includes(searchText.toLowerCase());
+        const matchesCategory =
+            filterCategory === "All" ||
+            contact.role.toLowerCase() + 's' === filterCategory.toLowerCase();
+        const matchStatus = status ? contact.status === "unread" : true;
+
+        return matchesSearch && matchesCategory && matchStatus;
+    });
 
     return (
         <div className="flex h-screen">
@@ -38,29 +47,38 @@ const Messages = () => {
             <div className="flex-1 flex flex-col">
                 <Header />
                 <main className="flex-1 p-2 bg-white border-l border-t overflow-y-auto">
-                    <div className=" max-w-[90%] mx-auto py-8 space-y-10">
+                    <div className="max-w-[90%] mx-auto py-8 space-y-10">
                         <div className="flex h-screen font-sans">
-                            
-                            <div className="w-1/4 border-r bg-white p-4">
-                            <div>
-                                <h1 className="text-2xl font-semibold mb-6">Chat </h1>
-                            </div>
+                            {/* Sidebar (Chat List) */}
+                            <div className="w-1/4 bg-white p-4">
+                                <h1 className="text-2xl font-semibold mb-6">Chat</h1>
                                 <input
                                     type="text"
-                                    value={input}
-                                    onChange={(e)=>setInput(e.target.value)}
+                                    value={searchText}
+                                    onChange={(e) => setSearchText(e.target.value)}
                                     placeholder="Search by Name / UID / Role"
                                     className="w-full mb-4 p-2 rounded bg-gray-100 text-sm"
                                 />
                                 <div className="grid grid-cols-2 gap-2 mb-4">
-                                    {["All", "Patients", "Staff", "Doctors", "Unread"].map((cat) => (
+                                    {["All", "Patients", "Staff", "Doctors",].map((cat) => (
                                         <button
                                             key={cat}
-                                            className="px-2 py-1 text-xs bg-gray-200 rounded hover:bg-purple-100"
+                                            onClick={() => setFilterCategory(cat)}
+                                            className={`px-1 py-1 text-xs rounded-full ${filterCategory === cat
+                                                ? "bg-purple-600 text-white"
+                                                : "bg-purple-200 hover:bg-purple-100"
+                                                }`}
                                         >
                                             {cat}
                                         </button>
                                     ))}
+                                    <button
+                                        onClick={() => setStatus(!status)}
+                                        className={`px-1 py-1 text-xs rounded-full ${status ? "bg-purple-600 text-white" : "bg-purple-200 hover:bg-purple-100"
+                                            }`}
+                                    >
+                                        Unread
+                                    </button>
                                 </div>
                                 {filteredData.map((contact) => (
                                     <div
@@ -78,7 +96,7 @@ const Messages = () => {
                                             <p className="text-sm font-semibold">{contact.name}</p>
                                             <p className="text-xs text-gray-500">{contact.time}</p>
                                         </div>
-                                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        {contact.status === 'unread' ? <div className="w-2 h-2 bg-green-500 rounded-full"></div> : null}
                                     </div>
                                 ))}
                             </div>
@@ -86,34 +104,80 @@ const Messages = () => {
                             {/* Chat Area */}
                             <div className="flex-1 flex flex-col">
                                 {/* Header */}
-                                <div className="p-4 flex justify-between items-center border-b">
-                                    <div className="flex items-center gap-4">
-                                        <img
-                                            src={`https://i.pravatar.cc/60?u=${selectedContact.id}`}
-                                            className="w-14 h-14 rounded-full"
-                                            alt="Profile"
-                                        />
-                                        <div>
-                                            <h2 className="text-lg font-bold">{selectedContact.name}</h2>
-                                            <p className="text-sm text-gray-500">UID: 12345 <br /> {selectedContact.role}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <button onClick={callUser} className="bg-gray-100 px-4 py-2 rounded"><FiPhone /></button>
-                                        <button onClick={shareFile} className="bg-gray-100 px-4 py-2 rounded"><FiUpload /></button>
-                                    </div>
+                                <div className="flex flex-col items-center py-6 ">
+                                    <img
+                                        src={`https://i.pravatar.cc/120?u=${selectedContact.id}`}
+                                        alt="Profile"
+                                        className="w-28 h-28 rounded-full object-cover mb-4"
+                                    />
+                                    <h2 className="text-xl font-semibold text-gray-900">{selectedContact.name}</h2>
+                                    <p className="text-sm text-gray-500">UID: 12345</p>
+                                    <p className="text-sm text-purple-600 font-medium">
+                                        {selectedContact.name.toLowerCase().startsWith("dr.")
+                                            ? "Doctor"
+                                            : selectedContact.role || "Patient"}
+                                    </p>
                                 </div>
 
-                                {/* Messages */}
-                                <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                                    {messages.map((msg, index) => (
-                                        <div key={index} className={`flex ${msg.from.includes("Dr.") ? "justify-end" : "justify-start"}`}>
-                                            <div className={`max-w-xs px-4 py-2 rounded-lg ${msg.from.includes("Dr.") ? "bg-purple-600 text-white" : "bg-gray-100 text-gray-900"}`}>
-                                                <p className="text-sm">{msg.text}</p>
-                                            </div>
-                                        </div>
-                                    ))}
+                                {/* Action Buttons floated left/right */}
+                                <div className="flex justify-between px-8 mt-4">
+                                    
+                                    <button 
+                                    onClick={callUser}
+                                    className="px-4 py-1 rounded-full bg-gray-100 text-sm font-medium">
+                                        Call
+                                    </button>
+                                    <button 
+                                    onClick={shareFile}
+                                    className="px-4 py-1 rounded-full bg-gray-100 text-sm font-medium">
+                                        Share File
+                                    </button>
                                 </div>
+
+
+
+                                {/* Messages */}
+                                <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                                    {messages.map((msg, index) => {
+                                        const isDoctor = msg.from.toLowerCase().startsWith("dr.");
+
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={`flex items-end gap-2 ${isDoctor ? "justify-end" : "justify-start"}`}
+                                            >
+                                                {!isDoctor && (
+                                                    <img
+                                                        src={`https://i.pravatar.cc/40?u=${msg.from}`}
+                                                        alt={msg.from}
+                                                        className="w-8 h-8 rounded-full"
+                                                    />
+                                                )}
+
+                                                <div className={`max-w-md ${isDoctor ? "text-right" : "text-left"}`}>
+                                                    <p className="text-xs text-gray-500 mb-1">{msg.from}</p>
+                                                    <div
+                                                        className={`px-4 py-2 rounded-xl text-sm ${isDoctor
+                                                                ? "bg-purple-600 text-white"
+                                                                : "bg-gray-100 text-gray-900"
+                                                            }`}
+                                                    >
+                                                        {msg.text}
+                                                    </div>
+                                                </div>
+
+                                                {isDoctor && (
+                                                    <img
+                                                        src={`https://i.pravatar.cc/40?u=${msg.from}`}
+                                                        alt={msg.from}
+                                                        className="w-8 h-8 rounded-full"
+                                                    />
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
 
                                 {/* Input */}
                                 <div className="border-t p-4 flex items-center gap-2">
@@ -126,11 +190,13 @@ const Messages = () => {
                                         type="text"
                                         placeholder="Type a message..."
                                         className="flex-1 p-2 rounded bg-gray-100"
-                                        value={input}
-                                        onChange={(e) => setInput(e.target.value)}
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
                                         onKeyDown={handleKeyDown}
                                     />
-                                    <button className="text-gray-500"><FiPaperclip /></button>
+                                    <button className="text-gray-500">
+                                        <FiPaperclip />
+                                    </button>
                                     <button
                                         onClick={sendMessage}
                                         className="bg-purple-600 text-white px-4 py-2 rounded flex items-center gap-1"
@@ -145,6 +211,6 @@ const Messages = () => {
             </div>
         </div>
     );
-}
+};
 
-export default Messages
+export default Messages;

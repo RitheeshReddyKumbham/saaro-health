@@ -33,7 +33,7 @@ const Medicines = () => {
                 <Header />
                 <main className="flex-1 p-2 bg-white border-l border-t overflow-y-auto">
                     <div className="max-w-[90%] mx-auto py-8 space-y-10">
-                        <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center justify-between mb-4">
                             <h2 className="text-2xl font-bold">Medicines</h2>
                             <button className="bg-[#f4f0fd] text-black font-semibold px-4 py-2 rounded-full hover:bg-[#e0dbf6]">
                                 + Add Medicine
@@ -55,6 +55,17 @@ const Medicines = () => {
                             <GenericTable
                                 columns={columns}
                                 data={filteredMedicines}
+                                renderCell={(row, accessor) => {
+                                    if(accessor==='name'){
+                                        return  <span className="text-sm ">{row[accessor]}</span>;
+                                    }
+                                    if(accessor==='actions'){
+                                        return  <span className="text-sm text-[#7c69a7] font-semibold">{row[accessor]}</span>;
+                                    }
+
+                                    return  <span className="text-sm text-[#7c69a7]">{row[accessor]}</span>;
+                                }
+                            }
                             />
                         </div>
                     </div>

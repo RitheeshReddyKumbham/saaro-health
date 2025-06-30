@@ -28,17 +28,24 @@ const DropDownConfiguration = () => {
                             <h2 className="text-2xl font-bold">Dropdown Configuration</h2>
                             <button
                                 onClick={handleNewEntry}
-                                className="bg-[#f4f0fd] text-black font-semibold px-4 py-2 rounded-full hover:bg-[#e0dbf6]">
+                                className="bg-[#a381f0] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#e0dbf6]">
                                 + Add New Entry
                             </button>
                         </div>
 
-                        <div className="overflow-x-auto border border-gray-200 rounded-xl">
+                        <div className="overflow-x-auto rounded-xl">
                             <GenericTable
                                 columns={columns}
                                 data={dropDownData}
                                 renderCell={(row, accessor) => {
-                                    return <span className="text-sm">{row[accessor]}</span>;
+                                    if (accessor === "name") {
+                                        return <span className="text-sm">{row[accessor]}</span>;
+                                    }
+                                    if (accessor === 'action') {
+                                        return <span className="text-sm text-[#7c69a7] font-semibold">{row[accessor]}</span>;
+                                    }
+
+                                    return <span className="text-md text-[#7c69a7]">{row[accessor]}</span>;
                                 }}
                             />
                         </div>

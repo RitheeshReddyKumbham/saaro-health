@@ -35,8 +35,8 @@ const IPDRecords = () => {
         <main className="flex-1 p-2 bg-white border-l border-t overflow-y-auto">
           <div className=" max-w-[90%] mx-auto py-8 space-y-10">
             {/* Header */}
-            <div className="flex justify-between items-center mb-2 ">
-              <h1 className="text-2xl font-bold">IPD Records</h1>
+            <div className="flex justify-between items-center ">
+              <h1 className="text-2xl font-bold mb-0">IPD Records</h1>
               <Link to='/ipd/discharge'>
                 <button
                   className="bg-[#ece8f9] text-[#5e3bea] px-4 py-2 rounded-xl text-sm font-medium hover:bg-[#dcd6f2] transition-colors"
@@ -78,13 +78,17 @@ const IPDRecords = () => {
 
                 if (accessor === "action") {
                   return (
-                    <button className="text-[#5e3bea] text-sm font-medium">
+                    <button className="text-[#7c69a7] text-sm font-medium">
                       View Details
                     </button>
                   );
                 }
 
-                return <span className="text-sm">{row[accessor]}</span>;
+                if(accessor==='name'){
+                  return <span className="text-sm">{row[accessor]}</span>;
+                }
+
+                return <span className="text-sm text-[#7c69a7]">{row[accessor]}</span>;
               }}
             />
           </div>

@@ -35,7 +35,7 @@ const AppointmentsDashboard = () => {
                                                     <p className="text-sm text-gray-500">{apt.time}</p>
                                                 </div>
                                             </div>
-                                            <button className="bg-gray-100 text-gray-800 px-4 py-1 rounded-full text-sm">
+                                            <button className="bg-purple-100 text-gray-800 px-4 py-1 rounded-full text-sm">
                                                 Detail
                                             </button>
                                         </div>
