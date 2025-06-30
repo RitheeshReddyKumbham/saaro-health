@@ -3,8 +3,9 @@ import TabHeader from "../components/ui/TabHeader";
 import Sidebar from "../components/layout/SideBar";
 import Header from "../components/layout/Header";
 import GenericTable from "../components/ui/GenericTable";
+import StatBox from "../components/ui/StatBox";
 import { FiSearch } from "react-icons/fi";
-import { data } from '../data/PatientQueueDummyData'
+import { data } from '../data/PatientQueueDummyData';
 
 const columns = [
     { label: "Token", accessor: "token" },
@@ -14,7 +15,7 @@ const columns = [
     { label: "Time", accessor: "time" },
     { label: "Status", accessor: "status" },
     { label: "Actions", accessor: "actions" },
-]
+];
 
 const PatientQueue = () => {
     const [activeTabId, setActiveTabId] = useState("Today");
@@ -26,19 +27,37 @@ const PatientQueue = () => {
         { id: "Upcoming", label: "Upcoming" },
     ];
 
-    
-
     const currentData = data[activeTabId];
 
     const filteredData = currentData.filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const stats = [
+        {
+            label: "Total Patients",
+            value: Object.values(data).flat().length,
+        },
+        {
+            label: "Waiting",
+            value: Object.values(data).flat().filter((p) => p.status === "Waiting").length,
+        },
+        {
+            label: "In Consultation",
+            value: Object.values(data).flat().filter((p) => p.status === "In Consultation").length,
+        },
+        {
+            label: "Completed",
+            value: Object.values(data).flat().filter((p) => p.status === "Completed").length,
+        },
+    ];
+
     return (
         <div className="flex h-screen">
             <Sidebar />
             <div className="flex-1 flex flex-col">
                 <Header />
-                <main className="flex-1 p-2 bg-white border-l border-t overflow-y-auto">
+                <main className="flex-1 bg-white border-l border-t overflow-y-auto">
                     <div className="max-w-[90%] mx-auto py-8 space-y-10">
                         <h1 className="text-2xl font-bold mb-4">Patient Queue</h1>
 
@@ -81,37 +100,8 @@ const PatientQueue = () => {
 
                             {/* Right Stats Panel */}
                             <div className="w-full lg:w-64 mt-6 lg:mt-0 space-y-4">
-                                <h1 className="">Quick Stats</h1>
-                                <div className="border rounded-lg p-4">
-                                    <p className="text-sm text-gray-500">Total Patients</p>
-                                    <p className="text-2xl font-semibold">
-                                        {Object.values(data).flat().length}
-                                    </p>
-                                </div>
-                                <div className="border rounded-lg p-4">
-                                    <p className="text-sm text-gray-500">Waiting</p>
-                                    <p className="text-2xl font-semibold">
-                                        {Object.values(data)
-                                            .flat()
-                                            .filter((p) => p.status === "Waiting").length}
-                                    </p>
-                                </div>
-                                <div className="border rounded-lg p-4">
-                                    <p className="text-sm text-gray-500">In Consultation</p>
-                                    <p className="text-2xl font-semibold">
-                                        {Object.values(data)
-                                            .flat()
-                                            .filter((p) => p.status === "In Consultation").length}
-                                    </p>
-                                </div>
-                                <div className="border rounded-lg p-4">
-                                    <p className="text-sm text-gray-500">Completed</p>
-                                    <p className="text-2xl font-semibold">
-                                        {Object.values(data)
-                                            .flat()
-                                            .filter((p) => p.status === "Completed").length}
-                                    </p>
-                                </div>
+                                <h1 className="text-lg font-semibold">Quick Stats</h1>
+                                <StatBox stats={stats} />
                             </div>
                         </div>
                     </div>

@@ -54,7 +54,7 @@ const Settings = () => {
             <div className="flex-1 flex flex-col">
                 <Header />
                 <main className="flex-1 p-2 bg-white border-l border-t overflow-y-auto">
-                    <div className="p-6 max-w-[95%] mx-auto py-8">
+                    <div className=" max-w-[90%] mx-auto py-8 space-y-10">
                         <h1 className="text-2xl font-semibold mb-4">Settings</h1>
                         <div className='flex justify-start w-max mb-4 ml-0'>
                             <TabHeader tabs={tabs} activeTabId={activeTab} setActiveTabId={setActiveTab} />

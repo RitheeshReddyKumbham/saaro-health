@@ -65,7 +65,7 @@ const Invoice = () => {
       <div className="flex-1 flex flex-col">
         <Header />
       <main className="flex-1 p-2 bg-white border-l border-t overflow-y-auto">
-      <div className="p-6 max-w-[90%] mx-auto">
+      <div className=" max-w-[90%] mx-auto py-8 space-y-10">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Invoices</h1>
           <button className="bg-[#ece8f9] text-[#5e3bea] px-4 py-2 rounded-xl text-sm font-medium">

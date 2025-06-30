@@ -1,5 +1,6 @@
 import {Routes, Route} from "react-router-dom"
 
+
 import ProtectedRoute from "./components/routes/ProtectedRoute"
 import Dashboard from "./pages/Dashboard"
 import AiAssistant from "./pages/AiAssistant"
@@ -12,6 +13,11 @@ import Templates from "./pages/Template"
 import DropDownConfiguration from "./pages/DropDownConfiguration"
 import Medicines from "./pages/Medicine"
 import PatientQueue from "./pages/PatientQueue" 
+import ConsultationForm from "./pages/Consult"
+import DischargeSummaryForm from "./pages/Discharge"
+import Messages from "./pages/Messages"
+import AppointmentsDashboard from "./pages/Appointments"
+import NotFoundPage from "./pages/PageNotFound"
 function App() {
 
 
@@ -30,6 +36,11 @@ function App() {
         <Route path="/dropdown-library" element={<ProtectedRoute><DropDownConfiguration /></ProtectedRoute>} />
         <Route path="/medicine-library" element={<ProtectedRoute><Medicines /></ProtectedRoute>} />
         <Route path="/patient-queue" element={<ProtectedRoute><PatientQueue /></ProtectedRoute>} />
+        <Route path={`/:id/consult`} element={<ProtectedRoute><ConsultationForm /></ProtectedRoute>} />
+        <Route path="/ipd/discharge" element={<ProtectedRoute><DischargeSummaryForm /></ProtectedRoute>} />
+        <Route path='/messages' element={<ProtectedRoute><Messages /></ProtectedRoute>} />
+        <Route path='/appointments' element={<ProtectedRoute><AppointmentsDashboard /></ProtectedRoute>} />
+        <Route path="*" element={<NotFoundPage />} />
      </Routes>
       </>
   )
